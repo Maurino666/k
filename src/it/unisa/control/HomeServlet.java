@@ -27,29 +27,39 @@ public class HomeServlet extends HttpServlet {
 		ProdottoDao dao = new ProdottoDao();
 		
 		ArrayList<ArrayList<ProdottoBean>> categorie = new ArrayList<>();
-		String redirectedPage = request.getParameter("page");
 		
-		try {
-			ArrayList<ProdottoBean> PS5 = dao.doRetrieveByPiattaforma("PlayStation 5");
-			ArrayList<ProdottoBean> XboxSeries = dao.doRetrieveByPiattaforma("Xbox Series");
-			ArrayList<ProdottoBean> Switch = dao.doRetrieveByPiattaforma("Nintendo Switch");
-			ArrayList<ProdottoBean> PS4 = dao.doRetrieveByPiattaforma("PlayStation 4");
-			ArrayList<ProdottoBean> Xone = dao.doRetrieveByPiattaforma("Xbox One");
-			
-			categorie.add(PS5);
-			categorie.add(XboxSeries);
-			categorie.add(Switch);
-			categorie.add(PS4);
-			categorie.add(Xone);
+		String page = request.getParameter("page");
 
-			request.getSession().setAttribute("categorie", categorie);
+		String redirectedPage;
+		
+		if(page.equals("META-INF/context.xml") || page.equals("WEB-INF/web.xml"))
 			
-
+			//se cerco di accedere a dati protetti manda alla home
+			redirectedPage = "Home.jsp";
 			
-		}catch(SQLException e) {
-			e.printStackTrace();
+		else {
+			redirectedPage = page;
+			try {
+				ArrayList<ProdottoBean> PS5 = dao.doRetrieveByPiattaforma("PlayStation 5");
+				ArrayList<ProdottoBean> XboxSeries = dao.doRetrieveByPiattaforma("Xbox Series");
+				ArrayList<ProdottoBean> Switch = dao.doRetrieveByPiattaforma("Nintendo Switch");
+				ArrayList<ProdottoBean> PS4 = dao.doRetrieveByPiattaforma("PlayStation 4");
+				ArrayList<ProdottoBean> Xone = dao.doRetrieveByPiattaforma("Xbox One");
+				
+				categorie.add(PS5);
+				categorie.add(XboxSeries);
+				categorie.add(Switch);
+				categorie.add(PS4);
+				categorie.add(Xone);
+	
+				request.getSession().setAttribute("categorie", categorie);
+				
+	
+				
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + redirectedPage);
 		dispatcher.forward(request, response);
 	}
