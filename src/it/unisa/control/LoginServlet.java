@@ -33,11 +33,11 @@ public class LoginServlet extends HttpServlet {
 			
 		     UserBean user = new UserBean();
 		     user.setUsername(request.getParameter("un"));
-		     user.setPassword(request.getParameter("pw"));
+		     user.setPassword(PasswordEncryption.encryptPassword(request.getParameter("pw")));
 		     
 		     
 		     
-		     user = usDao.doRetrieve(request.getParameter("un"),request.getParameter("pw"));
+		     user = usDao.doRetrieve(request.getParameter("un"),PasswordEncryption.encryptPassword(request.getParameter("pw"));
 			   		    
 		    
 		     String checkout = request.getParameter("checkout");
