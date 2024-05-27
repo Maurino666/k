@@ -29,35 +29,38 @@ public class CatalogoServlet extends HttpServlet {
 		String redirectedPage = request.getParameter("page");;
 	
 		try {
+			
+			
 			if(action!=null) {
+				//tolti i caratteri speciali da tutti i parametri (grazie caro gpt per aver suggerito il metodo)
 				if(action.equalsIgnoreCase("add")) {
-					bean.setNome(request.getParameter("nome"));
-					bean.setDescrizione(request.getParameter("descrizione"));
-					bean.setIva(request.getParameter("iva"));
-					bean.setPrezzo(Double.parseDouble(request.getParameter("prezzo")));
-					bean.setQuantità(Integer.parseInt(request.getParameter("quantità")));
-					bean.setPiattaforma(request.getParameter("piattaforma"));
-					bean.setGenere(request.getParameter("genere"));
-					bean.setImmagine(request.getParameter("img"));
-					bean.setDataUscita(request.getParameter("dataUscita"));
-					bean.setDescrizioneDettagliata(request.getParameter("descDett"));
+					bean.setNome(request.getParameter("nome").replaceAll("[<>]", ""));
+					bean.setDescrizione(request.getParameter("descrizione").replaceAll("[<>]", ""));
+					bean.setIva(request.getParameter("iva").replaceAll("[<>]", ""));
+					bean.setPrezzo(Double.parseDouble(request.getParameter("prezzo").replaceAll("[<>]", "")));
+					bean.setQuantità(Integer.parseInt(request.getParameter("quantità").replaceAll("[<>]", "")));
+					bean.setPiattaforma(request.getParameter("piattaforma").replaceAll("[<>]", ""));
+					bean.setGenere(request.getParameter("genere").replaceAll("[<>]", ""));
+					bean.setImmagine(request.getParameter("img").replaceAll("[<>]", ""));
+					bean.setDataUscita(request.getParameter("dataUscita").replaceAll("[<>]", ""));
+					bean.setDescrizioneDettagliata(request.getParameter("descDett").replaceAll("[<>]", ""));
 					bean.setInVendita(true);
 					prodDao.doSave(bean);
 				}
 				
 				else if(action.equalsIgnoreCase("modifica")) {
 					
-					bean.setIdProdotto(Integer.parseInt(request.getParameter("id")));
-					bean.setNome(request.getParameter("nome"));
-					bean.setDescrizione(request.getParameter("descrizione"));
-					bean.setIva(request.getParameter("iva"));
-					bean.setPrezzo(Double.parseDouble(request.getParameter("prezzo")));
-					bean.setQuantità(Integer.parseInt(request.getParameter("quantità")));
-					bean.setPiattaforma(request.getParameter("piattaforma"));
-					bean.setGenere(request.getParameter("genere"));
-					bean.setImmagine(request.getParameter("img"));
-					bean.setDataUscita(request.getParameter("dataUscita"));
-					bean.setDescrizioneDettagliata(request.getParameter("descDett"));
+					bean.setIdProdotto(Integer.parseInt(request.getParameter("id").replaceAll("[<>]", "")));
+					bean.setNome(request.getParameter("nome").replaceAll("[<>]", ""));
+					bean.setDescrizione(request.getParameter("descrizione").replaceAll("[<>]", ""));
+					bean.setIva(request.getParameter("iva").replaceAll("[<>]", ""));
+					bean.setPrezzo(Double.parseDouble(request.getParameter("prezzo").replaceAll("[<>]", "")));
+					bean.setQuantità(Integer.parseInt(request.getParameter("quantità").replaceAll("[<>]", "")));
+					bean.setPiattaforma(request.getParameter("piattaforma").replaceAll("[<>]", ""));
+					bean.setGenere(request.getParameter("genere").replaceAll("[<>]", ""));
+					bean.setImmagine(request.getParameter("img").replaceAll("[<>]", ""));
+					bean.setDataUscita(request.getParameter("dataUscita").replaceAll("[<>]", ""));
+					bean.setDescrizioneDettagliata(request.getParameter("descDett").replaceAll("[<>]", ""));
 					bean.setInVendita(true);
 					prodDao.doUpdate(bean);	
 				}
