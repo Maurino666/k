@@ -9,13 +9,10 @@ function checkNomeCognome(inputtxt) {
 	return false;	
 }
 
-
+//cambiato la funzione con una più veloce consigliata da chatgpt
 function checkEmail(inputtxt) {
-	var email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-	if(inputtxt.value.match(email)) 
-		return true;
-	
-	return false;	
+    var email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return email.test(inputtxt);
 }
 
 
